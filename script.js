@@ -1,11 +1,13 @@
 document.getElementById('alertButton').addEventListener('click', () => {
     alert('Button clicked!');
 });
+
 // Initialize UI components
 const taskForm = document.getElementById('taskForm');
 const taskInput = document.getElementById('taskInput');
+const dueDateInput = document.getElementById('dueDateInput');
 const taskList = document.getElementById('taskList');
-const scoreDisplay = document.getElementById('scoreDisplay'); // Display element for score
+const scoreDisplay = document.getElementById('scoreDisplay');
 
 let score = 0; // Initialize the score
 
@@ -21,33 +23,47 @@ function saveScoreToStorage() {
 
 // Load the score from Chrome storage
 function loadScoreFromStorage() {
-    chrome.storage.sync.get('score', function(result) {
+    chrome.storage.sync.get('score', function (result) {
         score = result.score || 0; // Default to 0 if no score is saved
         updateScoreDisplay();
     });
 }
 
 // Load tasks and score from Chrome storage when the page is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     loadTasks();
-    loadScoreFromStorage(); // Load the saved score
+    loadScoreFromStorage();
 });
 
 // Event listener for adding a task
-taskForm.addEventListener('submit', function(e) {
+taskForm.addEventListener('submit', function (e) {
     e.preventDefault();
+
     const task = taskInput.value.trim();
-    if (task) {
-        addTask(task);
-        taskInput.value = ''; 
-        saveTaskToStorage(task);
+    const dueDate = dueDateInput.value;
+
+    if (task && dueDate) {
+        const dueDateObject = new Date(dueDate);
+
+        // Check if the due date is in the future
+        if (dueDateObject < new Date()) {
+            alert("Due date must be in the future.");
+            return; // Exit if the due date is not valid
+        }
+
+        addTask(task, dueDate);
+        taskInput.value = ''; // Clear input
+        dueDateInput.value = '';
+        saveTaskToStorage(task, dueDate);
     }
 });
 
 // Function to add a task to the list
-function addTask(task) {
+function addTask(task, dueDate) {
     const li = document.createElement('li');
-    li.textContent = task;
+    const dueDateObject = new Date(dueDate);
+    const formattedDueDate = `${dueDateObject.toLocaleDateString()} - ${dueDateObject.toLocaleTimeString()}`;
+    li.textContent = `${task} - Due: ${formattedDueDate}`;
 
     // Checkmark button for completed tasks
     const checkBtn = document.createElement('button');
@@ -65,9 +81,8 @@ function addTask(task) {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
     deleteBtn.className = 'delete-btn';
-    deleteBtn.onclick = deleteTask;
+    deleteBtn.onclick = () => removeTask(li, task, dueDate);
 
-    // Append buttons to the task item
     li.appendChild(checkBtn);
     li.appendChild(uncompleteBtn);
     li.appendChild(deleteBtn);
@@ -77,65 +92,49 @@ function addTask(task) {
 // Function to mark a task as completed
 function completeTask(e) {
     const li = e.target.parentElement;
-    const task = li.firstChild.textContent;
-
-    // Increase the score for a completed task
     score++;
     updateScoreDisplay();
-    saveScoreToStorage(); // Save the updated score to storage
-
-    // Remove the task from the list and Chrome storage
+    saveScoreToStorage();
     li.remove();
-    removeTaskFromStorage(task);
 }
 
 // Function to mark a task as uncompleted
 function uncompleteTask(e) {
     const li = e.target.parentElement;
-    const task = li.firstChild.textContent;
-
-    // Decrease the score for an uncompleted task
     score--;
     updateScoreDisplay();
-    saveScoreToStorage(); // Save the updated score to storage
-
-    // Remove the task from the list and Chrome storage
+    saveScoreToStorage();
     li.remove();
-    removeTaskFromStorage(task);
 }
 
-// Function to delete a task without affecting the score
-function deleteTask(e) {
-    const li = e.target.parentElement;
-    const task = li.firstChild.textContent;
-
-    // Remove from UI and storage without changing score
+// Function to remove a task without affecting the score
+function removeTask(li, task, dueDate) {
     li.remove();
-    removeTaskFromStorage(task);
+    removeTaskFromStorage(task, dueDate);
 }
 
 // Save the task to Chrome Storage
-function saveTaskToStorage(task) {
-    chrome.storage.sync.get('tasks', function(result) {
+function saveTaskToStorage(task, dueDate) {
+    chrome.storage.sync.get('tasks', function (result) {
         const tasks = result.tasks || [];
-        tasks.push(task);
+        tasks.push({ task, dueDate });
         chrome.storage.sync.set({ tasks });
     });
 }
 
 // Load tasks from Chrome Storage
 function loadTasks() {
-    chrome.storage.sync.get('tasks', function(result) {
+    chrome.storage.sync.get('tasks', function (result) {
         const tasks = result.tasks || [];
-        tasks.forEach(task => addTask(task));
+        tasks.forEach(({ task, dueDate }) => addTask(task, dueDate));
     });
 }
 
 // Remove a task from Chrome Storage
-function removeTaskFromStorage(task) {
-    chrome.storage.sync.get('tasks', function(result) {
+function removeTaskFromStorage(task, dueDate) {
+    chrome.storage.sync.get('tasks', function (result) {
         let tasks = result.tasks || [];
-        tasks = tasks.filter(t => t !== task);
+        tasks = tasks.filter(t => !(t.task === task && t.dueDate === dueDate));
         chrome.storage.sync.set({ tasks });
     });
 }
