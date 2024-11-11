@@ -69,13 +69,13 @@ function addTask(task, dueDate) {
     const checkBtn = document.createElement('button');
     checkBtn.textContent = '✓';
     checkBtn.className = 'check-btn';
-    checkBtn.onclick = completeTask;
+    checkBtn.onclick = (e) => completeTask(e, task, dueDate);
 
     // X button for uncompleted tasks
     const uncompleteBtn = document.createElement('button');
     uncompleteBtn.textContent = '✗';
     uncompleteBtn.className = 'uncomplete-btn';
-    uncompleteBtn.onclick = uncompleteTask;
+    uncompleteBtn.onclick = (e) => uncompleteTask(e, task, dueDate);
 
     // Delete button to remove task without affecting score
     const deleteBtn = document.createElement('button');
@@ -90,21 +90,23 @@ function addTask(task, dueDate) {
 }
 
 // Function to mark a task as completed
-function completeTask(e) {
+function completeTask(e, task, dueDate) {
     const li = e.target.parentElement;
     score++;
     updateScoreDisplay();
     saveScoreToStorage();
     li.remove();
+    removeTaskFromStorage(task, dueDate); // Remove the task from storage
 }
 
 // Function to mark a task as uncompleted
-function uncompleteTask(e) {
+function uncompleteTask(e, task, dueDate) {
     const li = e.target.parentElement;
     score--;
     updateScoreDisplay();
     saveScoreToStorage();
     li.remove();
+    removeTaskFromStorage(task, dueDate); // Remove the task from storage
 }
 
 // Function to remove a task without affecting the score
