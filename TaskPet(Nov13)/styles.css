@@ -1,0 +1,216 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #4CAF50;
+    margin-top: 50px; /* Space to avoid header getting covered by sidebar toggle */
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.delete-btn {
+    background-color: #f44336;
+    margin-left: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+#healthBarContainer {
+    width: 100%;
+    background-color: #ccc; 
+    border-radius: 5px;
+    overflow: hidden; 
+}
+
+#healthBar {
+    height: 20px; 
+    transition: width 0.5s ease; /* Smooth transition for width changes */
+}
+
+.health-good {
+    background-color: green; 
+}
+
+.health-warning {
+    background-color: yellow; 
+}
+
+.health-low {
+    background-color: red; 
+}
+
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 250px; /* Slightly wider for more readability */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%); /* Initially hidden */
+    z-index: 999; /* Above other content */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Adds subtle shadow */
+}
+
+.sidebar.open {
+    transform: translateX(0); /* Show sidebar */
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: #444;
+    font-size: 1.2rem; /* Adjust font size */
+    font-weight: bold;
+}
+
+.sidebar-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-top: 1px solid #555;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.sidebar-menu li:hover {
+    background-color: #555; /* Darker background on hover */
+}
+
+.icon-home, .icon-settings, .icon-customize {
+    margin-right: 0.5rem;
+    font-size: 1.2rem; /* Icon size */
+}
+
+/* Main content */
+.content {
+    margin-left: 0; /* No margin initially */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.content.shifted {
+    margin-left: 250px; /* Shift content when sidebar is open */
+}
+
+/* Toggle button */
+.toggle-button {
+    position: fixed;
+    top: 20px; /* Adjust to prevent overlap with header */
+    left: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+    z-index: 1000; /* Ensure button is above other content */
+}
+
+/* Additional styles for score, health, and task list */
+#scoreDisplay, #healthDisplay, #taskList {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure the sidebar and content are responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Full width on smaller screens */
+        transform: translateX(-100%); /* Hide initially */
+    }
+
+    .sidebar.open {
+        transform: translateX(0); /* Show on open */
+    }
+
+    .content {
+        margin-left: 0; /* No margin on smaller screens */
+    }
+
+    .content.shifted {
+        margin-left: 0; /* No shift on smaller screens */
+    }
+}
+
+/* Hide the shop section initially */
+.hidden {
+    display: none;
+}
+
+/* Displayed shop section */
+#shopSection {
+    margin-top: 20px;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.hidden {
+    opacity: 0; /* Use opacity for smoother transition */
+    pointer-events: none;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List with Sidebar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar Section -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menu</h2>
+            <button onclick="toggleSidebar()">☰</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><i class="icon-home">🏠</i> <span>Home</span></li>
+            <li><i class="icon-settings">⚙️</i> <span>Settings</span></li>
+            <li><i class="icon-customize">🎩</i> <span>Customize</span></li>
+            <li><i class="icon-item shop">🛒</i> <span>Item Shop</span></li> 
+        </ul>
+    </div>
+
+    <!-- Toggle Sidebar Button -->
+    <button class="toggle-button" onclick="toggleSidebar()">☰</button>
+
+    <!-- Main Content Section -->
+    <div class="content">
+        <div id="scoreDisplay">Coins: 0</div>
+
+        <div id="healthBarContainer">
+            <div id="healthBar" style="width: 100%; height: 20px; background-color: green;"></div>
+        </div>
+        <p id="healthDisplay">Health: 100</p>
+        <div id="notification" class="notification hidden"></div>
+
+        <h1>Task List</h1>
+        <form id="taskForm">
+            <input type="text" id="taskInput" placeholder="Enter a new task" required>
+            <input type="datetime-local" id="dueDateInput" required>
+            <button type="submit">Add Task</button>
+        </form>
+        <ul id="taskList"></ul>
+        <p>This is the home page of your extension.</p>
+        <button id="alertButton">Click me!</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>
