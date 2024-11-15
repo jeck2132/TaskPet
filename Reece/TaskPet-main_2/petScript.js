@@ -10,6 +10,17 @@ const uploadWindow = document.getElementById('uploadWindow');
 let backgroundUploaded = false;
 let petUploaded = false;
 
+// Create the "Clear Images" button
+const clearImagesBtn = document.createElement('button');  // Create Clear Images button
+clearImagesBtn.textContent = 'Clear Images';
+clearImagesBtn.style.backgroundColor = '#f44336';  // Red color for emphasis
+clearImagesBtn.style.color = 'white';
+clearImagesBtn.style.padding = '10px';
+clearImagesBtn.style.border = 'none';
+clearImagesBtn.style.cursor = 'pointer';
+clearImagesBtn.style.marginTop = '10px';
+uploadWindow.appendChild(clearImagesBtn);
+
 // Open the Pet Display Window (Modal)
 function openPetWindow() {
     petContainer.style.display = 'block';
@@ -54,6 +65,22 @@ petUpload.addEventListener('change', (event) => {
         };
         reader.readAsDataURL(file);
     }
+});
+
+// Clear images and reset localStorage
+clearImagesBtn.addEventListener('click', () => {
+    // Clear background and pet images
+    petContainer.style.backgroundImage = '';  // Remove background image
+    petImage.src = '';  // Remove pet image
+    petImage.style.display = 'none';  // Hide pet image
+    
+    // Reset uploaded flags
+    backgroundUploaded = false;
+    petUploaded = false;
+    
+    // Clear images from localStorage
+    localStorage.removeItem('backgroundImage');
+    localStorage.removeItem('petImage');
 });
 
 // Load images from localStorage when the page is loaded
