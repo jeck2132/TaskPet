@@ -1,0 +1,124 @@
+/* Existing styles in styles.css */
+
+/* Import Press Start 2P font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', cursive; /* Applying pixelated font globally */
+    text-align: center;
+    padding: 20px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAAyCAYAAADm1uYqAAAAAXNSR0IArs4c6QAAANpJREFUeJzt2LENg1AQBUE+cmU0RiMklEIDzinEkQNogQytNFPBRaunG9v3uCaAgPntAwCeEiwgQ7CAjPH/rX5YQIKFBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkfPZzefsGgEcsLCBDsIAMwQIybjLBCLl/I0IgAAAAAElFTkSuQmCC');
+    background-repeat: repeat;
+    background-position: center top;
+}
+
+h1 {
+    color: #385dbb;
+    font-family: 'Press Start 2P', cursive; /* Ensures pixelated font */
+    margin-top: 35px; /* Increase the space above the title */
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    background-color: #385dbb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.delete-btn {
+    background-color: #f44336;
+    margin-left: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Task list item styling */
+li {
+    padding: 10px;
+    background-color: transparent; /* Removed white background */
+    margin-bottom: 10px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%; /* Ensures it fills available space */
+    white-space: normal; /* Allow text to wrap normally */
+    overflow: hidden; /* Hide any overflow */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    word-wrap: break-word; /* Force long words to break and wrap onto a new line */
+}
+
+/* Ensure buttons fit next to the text */
+button {
+    padding: 5px 10px;
+    background-color: #385dbb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.check-btn, .uncomplete-btn {
+    margin-left: 5px;
+}
+
+/* New styles for the "Open Pet" button */
+#petButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #385dbb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#scoreDisplay {
+    position: absolute; /* Absolute positioning to move it freely */
+    left: 20px; /* Adjust this value to set the distance from the left edge */
+    top: 20px; /* Adjust this value to set the vertical position */
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-family: 'Press Start 2P', cursive; /* Apply pixelated font to score */
+}
+
+#header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Style for the clickable logo */
+#logo {
+    position: fixed;
+    bottom: 0px; /* Position it near the bottom of the page */
+    left: 50%;
+    transform: translateX(-50%); /* Center it horizontally */
+    width: 40px; /* Adjust size as needed */
+    margin: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Add smooth scaling effect */
+}
+
+#logo:hover {
+    transform: translateX(-50%) scale(1.1); /* Slight zoom effect on hover */
+}
