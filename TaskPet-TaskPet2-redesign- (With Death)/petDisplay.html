@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Display</title>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        #petContainer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 9999;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+        }
+
+        @keyframes waveMovement {
+            0% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-5px);
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+        }
+
+        #petImage {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: contain;
+            animation: waveMovement 2s ease-in-out infinite;
+        }
+
+        #imageOptionsBtn {
+            position: absolute;
+            bottom: 10px;  /* Move the button to the bottom */
+            right: 10px;   /* Keep the button on the right */
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #uploadWindow {
+            display: none;
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            border-radius: 10px;
+        }
+
+        #uploadSection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #backgroundUpload, #petUpload {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="petContainer">
+        <img id="petImage" src="" alt="Pet Image" style="display: none;">
+        <button id="imageOptionsBtn">Options</button>
+    </div>
+
+    <div id="uploadWindow">
+        <div id="uploadSection">
+            <label for="backgroundUpload">Upload Background Image:</label>
+            <input type="file" id="backgroundUpload" accept="image/*">
+            <label for="petUpload">Upload Pet Image:</label>
+            <input type="file" id="petUpload" accept="image/*">
+        </div>
+    </div>
+
+    <script src="petScript.js"></script>
+</body>
+</html>
